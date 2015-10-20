@@ -1,24 +1,20 @@
 var diametro;
-var radio;
-var origen;
 var canvas;
 var margen = 10;
-var myCaleido = new Array(14);
+var myCaleido = new Array(20);
+var paleta ;
 
 
 function setup() {
   frameRate(30);
   testSize();
   colorMode(HSB, 100, 100, 100, 100);
-  origen = createVector(windowWidth / 2 - diametro / 2, windowHeight / 2 - diametro / 2);
-  canvas = createCanvas(diametro, diametro);
-  canvas.position(origen.x, origen.y);
+  canvas = createCanvas(windowWidth, windowHeight);
   background(0);
-  translate(radio, radio);
+  translate(windowWidth / 2, windowHeight/2);
   for (var i = 0; i < myCaleido.length; i++) {
-    myCaleido[i] = new Caleido(radio, setColor(i), setBehavior(i));
+    myCaleido[i] = new Caleido(diametro, setColor(i), setBehavior(i));
   }
-
 }
 
 function draw() {
@@ -29,40 +25,38 @@ function draw() {
 
 function windowResized() {
   testSize();
-  origen.x = windowWidth / 2 - diametro / 2;
-  origen.y = windowHeight / 2 - diametro / 2;
-  canvas.position(origen.x, origen.y);
-  resizeCanvas(diametro, diametro);
-  translate(radio, radio);
+  resizeCanvas(windowWidth, windowHeight);
+  translate(windowWidth/2, windowHeight/2);
   for (var i = 0; i < myCaleido.length; i++) {
-    myCaleido[i].rezise(radio);
+    myCaleido[i].rezise(diametro);
   }
 }
 
 function testSize() {
   if (windowWidth >= windowHeight) {
-    diametro = windowHeight - margen;
+    diametro = windowHeight;
   } else {
-    diametro = windowWidth - margen;
+    diametro = windowWidth;
   }
-  radio = diametro / 2;
+  paleta = random(85);
 }
 
 function setColor(i) {
-  var tono = map(noise(i), 0, 1, 50, 70);
+  var tono = random(paleta, paleta + 20);
+  console.log(tono);
   var sat = map(noise(i + 1), 0, 1, 30, 120)
   var lum = random(60,100);
-  return color(tono, sat, 100, 10);
+  return color(tono, sat, 100, 30);
 }
 
 function setBehavior(i) {
   var params = new Array(7); //parámetros de comportamiento
-  params[0] = map(noise(i), 0, 1, 0, 1);
-  params[1] = map(noise(i), 0, 1, 1, 2);
-  params[2] = random(0.001, 0.5); // rango de rotación
-  params[3] = random(0.01, 0.0001); //velosidad de rotación
-  params[4] = random(0.01, 0.001); // velosidad de tamaño
-  params[5] = random(1, radio / 30)
-  params[6] = noise(i) < 0.5 ? true : false;
+  params[0] = random(10);
+  params[1] = random(10);
+  params[2] = random(0.00001, 0.1); // rango de rotación
+  params[3] = random(0.001, 0.00001); //velosidad de rotación
+  params[4] = random(0.01, 0.00001); // velosidad de tamaño
+  params[5] = random(1, diametro / 35)
+  params[6] = random(1) < 0.7 ? true : false;
   return params;
 }
