@@ -5,7 +5,7 @@ function Linea(_escala, _color, _behavior) {
   this.sioNo = _behavior[6];
 
   this.tam = _behavior[5];
-  this.tamMaximo = random(2, 10);
+  this.tamMaximo = _behavior[5];
   this.vel = createVector(0, 0.1);
 
   this.t = _behavior[0];

@@ -3,7 +3,7 @@ var radio;
 var origen;
 var canvas;
 var margen = 10;
-var myCaleido = new Array(7);
+var myCaleido = new Array(14);
 
 
 function setup() {
@@ -49,20 +49,20 @@ function testSize() {
 }
 
 function setColor(i) {
-  var tono = map(noise(i), 0, 1, 20, 70);
+  var tono = map(noise(i), 0, 1, 50, 70);
   var sat = map(noise(i + 1), 0, 1, 30, 120)
-  var lum = random(50,100);
-  return color(tono, sat, lum, 10);
+  var lum = random(60,100);
+  return color(tono, sat, 100, 10);
 }
 
 function setBehavior(i) {
   var params = new Array(7); //parámetros de comportamiento
   params[0] = map(noise(i), 0, 1, 0, 1);
   params[1] = map(noise(i), 0, 1, 1, 2);
-  params[2] = random(0.001, 0.1); // rango de rotación
+  params[2] = random(0.001, 0.5); // rango de rotación
   params[3] = random(0.01, 0.0001); //velosidad de rotación
   params[4] = random(0.01, 0.001); // velosidad de tamaño
-  params[5] = random(1, radio / 20)
+  params[5] = random(1, radio / 30)
   params[6] = noise(i) < 0.5 ? true : false;
   return params;
 }
