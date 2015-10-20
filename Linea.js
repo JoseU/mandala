@@ -1,16 +1,20 @@
-function Linea(_escala) {
+function Linea(_escala, _color, _behavior) {
   this.escala = _escala;
   this.pos = createVector(random(1), random(1));
-  this.tam = random(1, this.escala / 50);
-  this.tamMaximo = random(2, 10);
-  this.vel = createVector(0,0.1);
-  this.t = random(1);
-  this.t2 = random(2);
   this.pos.mult(this.escala - 50);
-  this.rRot = random(0.05, 0.1); //rango de rotación para cambiar la dirección;
-  this.velT = random(0.01, 0.0001); // velosidad de cambio de dirección
-  this.velT2 = random(0.001, 0.01);// velosidad de cambio de tamaño
-  this.colorinche = color(random(20, 80), random(50,255), 200, 50);
+  this.sioNo = _behavior[6];
+
+  this.tam = _behavior[5];
+  this.tamMaximo = random(2, 10);
+  this.vel = createVector(0, 0.1);
+
+  this.t = _behavior[0];
+  this.t2 = _behavior[1];
+
+  this.rRot = _behavior[2]; //rango de rotación para cambiar la dirección;
+  this.velT = _behavior[3]; // velosidad de cambio de dirección
+  this.velT2 = _behavior[4]; // velosidad de cambio de tamaño
+  this.c = _color;
 }
 
 Linea.prototype.test = function() {
@@ -23,7 +27,7 @@ Linea.prototype.test = function() {
 
 Linea.prototype.upDate = function() {
   this.vel.rotate(map(noise(this.t), 0, 1, -this.rRot, this.rRot));
-  this.tam = map(noise(this.t2), 0,1, 0.1, this.tamMaximo);
+  this.tam = map(noise(this.t2), 0, 1, 0.1, this.tamMaximo);
   this.pos.add(this.vel);
   this.t += this.velT;
   this.t2 += this.velT2;
@@ -31,15 +35,17 @@ Linea.prototype.upDate = function() {
 
 Linea.prototype.dibujar = function() {
   noStroke();
-  fill(this.colorinche);
+  fill(this.c);
   ellipse(this.pos.x, this.pos.y, this.tam, this.tam);
-  noFill();
-  stroke(0,50);
-  strokeWeight(this.tam / 8);
-  ellipse(this.pos.x, this.pos.y, this.tam, this.tam);
-  stroke(red(this.colorinche) + 100, green(this.colorinche) + 100, blue(this.colorinche) + 50, 10);
-  strokeWeight(this.tam / 10);
-  ellipse(this.pos.x, this.pos.y, this.tam * 8, this.tam/2)
+  if (this.sioNo) {
+    noFill();
+    stroke(0, 30);
+    strokeWeight(this.tam / 8);
+    ellipse(this.pos.x, this.pos.y, this.tam, this.tam);
+    stroke(hue(this.c), 50, 100, 5);
+    strokeWeight(this.tam / 10);
+    ellipse(this.pos.x, this.pos.y, this.tam * 5, this.tam/5)
+  }
 }
 
 Linea.prototype.resize = function(_escala) {

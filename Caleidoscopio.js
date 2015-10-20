@@ -1,17 +1,19 @@
-function Caleido(_escala) {
+
+
+function Caleido(_escala, _color, _behavior) {
   this.escala = _escala;
-  this.linea = new Linea(this.escala);
+  this.c = _color;
+  this.behavior = _behavior;
+  this.linea = new Linea(this.escala, this.c, this.behavior);
+  this.div = random(1) < 0.6 ? 7:14;
 }
 
 
 Caleido.prototype.update = function() {
+  var angulo = 360 / this.div;
   push();
-  for (var i = 0; i < 7; i++) { 
-    //implemental un perlin 
-    //noise para asignar los valores 
-    //de color, velosidades y variaciones 
-    //de tamaño en lugar de usar random
-    rotate(radians(51.42));
+  for (var i = 0; i < this.div; i++) {
+    rotate(radians(angulo));
     this.linea.test();
     this.linea.upDate();
     this.linea.dibujar();

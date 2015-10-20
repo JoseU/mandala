@@ -7,16 +7,16 @@ var myCaleido = new Array(7);
 
 
 function setup() {
-  //frameRate(20);
+  frameRate(30);
   testSize();
-  
+  colorMode(HSB, 100, 100, 100, 100);
   origen = createVector(windowWidth / 2 - diametro / 2, windowHeight / 2 - diametro / 2);
   canvas = createCanvas(diametro, diametro);
   canvas.position(origen.x, origen.y);
   background(0);
   translate(radio, radio);
   for (var i = 0; i < myCaleido.length; i++) {
-    myCaleido[i] = new Caleido(radio);
+    myCaleido[i] = new Caleido(radio, setColor(i), setBehavior(i));
   }
 
 }
@@ -46,4 +46,23 @@ function testSize() {
     diametro = windowWidth - margen;
   }
   radio = diametro / 2;
+}
+
+function setColor(i) {
+  var tono = map(noise(i), 0, 1, 20, 70);
+  var sat = map(noise(i + 1), 0, 1, 30, 120)
+  var lum = random(50,100);
+  return color(tono, sat, lum, 10);
+}
+
+function setBehavior(i) {
+  var params = new Array(7); //parámetros de comportamiento
+  params[0] = map(noise(i), 0, 1, 0, 1);
+  params[1] = map(noise(i), 0, 1, 1, 2);
+  params[2] = random(0.001, 0.1); // rango de rotación
+  params[3] = random(0.01, 0.0001); //velosidad de rotación
+  params[4] = random(0.01, 0.001); // velosidad de tamaño
+  params[5] = random(1, radio / 20)
+  params[6] = noise(i) < 0.5 ? true : false;
+  return params;
 }
