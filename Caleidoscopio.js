@@ -6,7 +6,11 @@ function Caleido(_escala) {
 
 Caleido.prototype.update = function() {
   push();
-  for (var i = 0; i < 7; i++) {
+  for (var i = 0; i < 7; i++) { 
+    //implemental un perlin 
+    //noise para asignar los valores 
+    //de color, velosidades y variaciones 
+    //de tamaño en lugar de usar random
     rotate(radians(51.42));
     this.linea.test();
     this.linea.upDate();
