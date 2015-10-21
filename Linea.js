@@ -11,8 +11,8 @@ function Linea(_escala, _color, _behavior) {
   this.t2 = _behavior[1];
 
   this.rRot = _behavior[2]; //rango de rotación para cambiar la dirección;
-  this.velT = _behavior[3]; // velosidad de cambio de dirección
-  this.velT2 = _behavior[4]; // velosidad de cambio de tamaño
+  this.velT = _behavior[3]; // velocidad de cambio de dirección
+  this.velT2 = _behavior[4]; // velocidad de cambio de tamaño
   this.c = _color;
 }
 
